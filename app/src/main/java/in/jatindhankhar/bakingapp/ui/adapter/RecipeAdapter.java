@@ -13,6 +13,7 @@ import java.util.List;
 
 import in.jatindhankhar.bakingapp.R;
 import in.jatindhankhar.bakingapp.dummy.DummyContent;
+import in.jatindhankhar.bakingapp.model.Recipes;
 import in.jatindhankhar.bakingapp.ui.activity.RecipeDetailActivity;
 import in.jatindhankhar.bakingapp.ui.activity.RecipeListActivity;
 import in.jatindhankhar.bakingapp.ui.fragment.RecipeDetailFragment;
@@ -25,7 +26,7 @@ public class RecipeAdapter
         extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
     private final RecipeListActivity mParentActivity;
-    private final List<DummyContent.DummyItem> mValues;
+    private final List<Recipes> mRecipes;
     private final boolean mTwoPane;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -50,11 +51,13 @@ public class RecipeAdapter
     };
 
     public RecipeAdapter(RecipeListActivity parent,
-                         List<DummyContent.DummyItem> items,
+                         List<Recipes> recipes,
                          boolean twoPane) {
-        mValues = items;
+        mRecipes = recipes;
         mParentActivity = parent;
         mTwoPane = twoPane;
+
+
     }
 
     @Override
@@ -66,26 +69,30 @@ public class RecipeAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        // holder.mIdView.setText(mRecipes.get(position).getName());
+        //  holder.mContentView.setText(mRecipes.get(position).getServings());
 
-        holder.itemView.setTag(mValues.get(position));
+        // holder.itemView.setTag(mRecipes.get(position));
+        holder.mIdView.setText(mRecipes.get(position).getName());
+        holder.mContentView.setText(mRecipes.get(position).getServings() + "");
         holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mRecipes.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView mIdView;
         final TextView mContentView;
+        final View mParentView;
 
         ViewHolder(View view) {
             super(view);
+            mParentView = view;
             mIdView = (TextView) view.findViewById(R.id.id_text);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.serving_count);
         }
     }
 }

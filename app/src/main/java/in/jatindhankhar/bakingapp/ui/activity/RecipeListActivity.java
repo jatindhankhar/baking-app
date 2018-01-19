@@ -89,7 +89,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 pacmanIndicator.hide();
                 if(response.isSuccessful())
                 {
-                    setupRecyclerView();
+                    setupRecyclerView(response.body());
                     List<Recipes> recipes = response.body();
                     for(Recipes recipe : recipes)
                     {
@@ -115,8 +115,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
     }
 
-    private void setupRecyclerView() {
-        recyclerView.setAdapter(new RecipeAdapter(this, DummyContent.ITEMS, mTwoPane));
+    private void setupRecyclerView(List<Recipes> recipes) {
+        recyclerView.setAdapter(new RecipeAdapter(this, recipes, mTwoPane));
     }
 
 }
