@@ -23,8 +23,8 @@
         android:name="in.jatindhankhar.bakingapp.RecipeListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="in.jatindhankhar.bakingapp.ui.activity.RecipeListActivity"
         tools:listitem="@layout/recipe_list_content" />

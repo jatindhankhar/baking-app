@@ -30,6 +30,15 @@
         <include layout="@layout/recipe_list" />
     </FrameLayout>
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="PacmanIndicator"
+        android:layout_gravity="center"
+        style="@style/AVLoadingIndicatorView.Large"
+        app:indicatorColor="@color/colorAccent"
+        android:id="@+id/pacman_loading"
+        />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
