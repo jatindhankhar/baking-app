@@ -7,9 +7,10 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.jatindhankhar.bakingapp.R;
 import in.jatindhankhar.bakingapp.ui.fragment.RecipeDetailFragment;
 import in.jatindhankhar.bakingapp.utils.Constants;
@@ -22,12 +23,15 @@ import in.jatindhankhar.bakingapp.utils.Constants;
  */
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.recipe_detail_container)
+    NestedScrollView scrollView;
+    @BindView(R.id.detail_toolbar)
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.recipe_detail_container);
+        ButterKnife.bind(this);
         Boolean extFragment = getIntent().getBooleanExtra(Constants.EXTERNAL_INVOKE, false);
         String widgetData = getIntent().getStringExtra(Constants.WIDGET_DATA);
         scrollView.setFillViewport(true);
@@ -44,13 +48,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
 
             if (extFragment) {
-                Log.d("Hachi","ExternalLaunch");
-                if (!widgetData.isEmpty())
-                {arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, widgetData);
-                Log.d("Hachi","Data is " + widgetData);
+
+                if (!widgetData.isEmpty()) {
+                    arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, widgetData);
+
                 }
             } else {
-                Log.d("Hachi","Internal Launch");
+
                 arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
                         getIntent().getStringExtra(RecipeDetailFragment.ARG_ITEM_ID));
             }

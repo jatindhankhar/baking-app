@@ -71,8 +71,8 @@ public class BakingAppWidgetConfigureActivity extends Activity implements Recycl
         setResult(RESULT_CANCELED);
         setContentView(R.layout.baking_app_widget_configure);
         ButterKnife.bind(this);
-        selectedJSON = Utils.loadTitlePref(getApplication(),mAppWidgetId,Constants.WIDGET_INGREDIENT_DATA);
-        mSelectedRecipe.setText(Utils.loadTitlePref(getApplication(),mAppWidgetId,Constants.WIDGET_RECIPE_NAME));
+        selectedJSON = Utils.loadTitlePref(getApplication(), mAppWidgetId, Constants.WIDGET_INGREDIENT_DATA);
+        mSelectedRecipe.setText(Utils.loadTitlePref(getApplication(), mAppWidgetId, Constants.WIDGET_RECIPE_NAME));
         mGson = new Gson();
 
         String jsonData = Utils.getJSONData(getApplicationContext());
@@ -83,8 +83,6 @@ public class BakingAppWidgetConfigureActivity extends Activity implements Recycl
             setupRecyclerView(mRecipesList);
         }
 
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
-        // findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -97,10 +95,8 @@ public class BakingAppWidgetConfigureActivity extends Activity implements Recycl
         // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
-            return;
         }
 
-        //mAppWidgetText.setText(loadTitlePref(BakingAppWidgetConfigureActivity.this, mAppWidgetId));
     }
 
     private void setupRecyclerView(List<Recipes> recipesList) {
@@ -114,7 +110,7 @@ public class BakingAppWidgetConfigureActivity extends Activity implements Recycl
         String recipeName = mRecipesList.get(position).getName();
         mSelectedRecipe.setText(mRecipesList.get(position).getName());
         selectedJSON = mGson.toJson(recipe);
-        Utils.saveTitlePref(getApplicationContext(),mAppWidgetId,recipeName,selectedJSON);
+        Utils.saveTitlePref(getApplicationContext(), mAppWidgetId, recipeName, selectedJSON);
         mFabDone.setEnabled(true);
     }
 
@@ -122,16 +118,13 @@ public class BakingAppWidgetConfigureActivity extends Activity implements Recycl
     public void onDone() {
         if (!selectedJSON.isEmpty()) {
             finishConfiguration();
-        }
-        else
-        {
-            Toast.makeText(this, "Select a Recipe First", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.user_recipe_select_prompt, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void finishConfiguration()
-    {
-     //   saveTitlePref(context, mAppWidgetId, widgetText);
+    private void finishConfiguration() {
+        //   saveTitlePref(context, mAppWidgetId, widgetText);
 
         // It is the responsibility of the configuration activity to update the app widget
         final Context context = BakingAppWidgetConfigureActivity.this;

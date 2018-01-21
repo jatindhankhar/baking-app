@@ -33,7 +33,6 @@ public class BakingAppWidget extends AppWidgetProvider {
             Intent activityIntent = new Intent(context, RecipeDetailActivity.class);
             activityIntent.putExtra(Constants.EXTERNAL_INVOKE,true);
             activityIntent.putExtra(Constants.WIDGET_DATA, jsonData);
-            Log.d("Hachi","Sending data " + jsonData);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
             views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
         }

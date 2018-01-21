@@ -30,11 +30,11 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/step_sign"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/stairs" />
+                app:srcCompat="@drawable/stairs" />
 
             <TextView
                 android:id="@+id/step_count"
@@ -52,11 +52,11 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/serving_sign"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_local_dining" />
+                app:srcCompat="@drawable/ic_local_dining" />
 
             <TextView
                 android:id="@+id/serving_count"
@@ -75,11 +75,11 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ingredient_sign"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ingredients" />
+                app:srcCompat="@drawable/ingredients" />
 
             <TextView
                 android:id="@+id/ingredient_count"
