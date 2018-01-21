@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <service
+            android:name=".widget.service.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <activity
             android:name=".ui.activity.RecipeListActivity"
             android:label="@string/title_recipe_list"
@@ -31,6 +33,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.jatindhankhar.bakingapp.ui.activity.RecipeListActivity" />
         </activity>
+
+        <receiver android:name=".widget.ui.BakingAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_app_widget_info" />
+        </receiver>
+
+        <activity android:name=".widget.ui.BakingAppWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
+
+
 
 </manifest>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,7 +22,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ingredients" />
+                app:srcCompat="@drawable/ingredients" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_quantity" />
+                app:srcCompat="@drawable/ic_quantity" />
 
             <TextView
                 android:layout_width="48dp"
@@ -69,7 +70,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/scale" />
+                app:srcCompat="@drawable/scale" />
 
             <TextView
                 android:layout_width="wrap_content"

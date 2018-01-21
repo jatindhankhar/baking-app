@@ -5,6 +5,11 @@ package in.jatindhankhar.bakingapp.utils;
  */
 
 public final class Constants {
+    public static final String WIDGET_RECIPE_NAME = "appwidget_recipe_name_";
+    public static final String WIDGET_INGREDIENT_DATA = "appwidget_ingredient_data_";
+    public static final String EXTERNAL_INVOKE = "external_invoke";
+    public static final String WIDGET_DATA = "widget_data";
+
     private Constants(){
         // Avoid uncessary Instantiation
     }

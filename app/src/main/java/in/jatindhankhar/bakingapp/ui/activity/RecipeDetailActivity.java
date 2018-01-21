@@ -2,18 +2,17 @@ package in.jatindhankhar.bakingapp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import in.jatindhankhar.bakingapp.R;
 import in.jatindhankhar.bakingapp.ui.fragment.RecipeDetailFragment;
+import in.jatindhankhar.bakingapp.utils.Constants;
 
 /**
  * An activity representing a single Recipe detail screen. This
@@ -28,8 +27,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        NestedScrollView scrollView =(NestedScrollView) findViewById(R.id.recipe_detail_container);
-        scrollView.setFillViewport (true);
+        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.recipe_detail_container);
+        Boolean extFragment = getIntent().getBooleanExtra(Constants.EXTERNAL_INVOKE, false);
+        String widgetData = getIntent().getStringExtra(Constants.WIDGET_DATA);
+        scrollView.setFillViewport(true);
         setSupportActionBar(toolbar);
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -41,8 +42,18 @@ public class RecipeDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(RecipeDetailFragment.ARG_ITEM_ID));
+
+            if (extFragment) {
+                Log.d("Hachi","ExternalLaunch");
+                if (!widgetData.isEmpty())
+                {arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, widgetData);
+                Log.d("Hachi","Data is " + widgetData);
+                }
+            } else {
+                Log.d("Hachi","Internal Launch");
+                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
+                        getIntent().getStringExtra(RecipeDetailFragment.ARG_ITEM_ID));
+            }
             RecipeDetailFragment fragment = new RecipeDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

@@ -1,4 +1,4 @@
-package in.jatindhankhar.bakingapp.ui.adapter;
+package in.jatindhankhar.bakingapp.widget.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,47 +26,26 @@ import in.jatindhankhar.bakingapp.ui.interfaces.RecyclerViewClickListener;
  * Created by jatin on 1/19/18.
  */
 
-public class RecipeAdapter
-        extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+public class RecipeConfigureAdapter
+        extends RecyclerView.Adapter<RecipeConfigureAdapter.ViewHolder> {
 
     private final RecipeListActivity mParentActivity;
     private final List<Recipes> mRecipes;
     private final boolean mTwoPane;
+    private static RecyclerViewClickListener mWidgetItemListener;
     private Gson gson;
-    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Recipes r = (Recipes) view.getTag();
-            if (mTwoPane) {
-                Bundle arguments = new Bundle();
-                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, gson.toJson(r));
-                RecipeDetailFragment fragment = new RecipeDetailFragment();
-                fragment.setArguments(arguments);
-                mParentActivity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.recipe_detail_container, fragment)
-                        .commit();
-            } else {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, RecipeDetailActivity.class);
-                intent.putExtra(RecipeDetailFragment.ARG_ITEM_ID, gson.toJson(r));
 
-                context.startActivity(intent);
-            }
-        }
-    };
 
-    public RecipeAdapter(RecipeListActivity parent,
-                         List<Recipes> recipes,
-                         boolean twoPane) {
-        // Constructor for ListActivity
+
+
+    public RecipeConfigureAdapter(RecipeListActivity parent, List<Recipes> recipes, boolean twoPane, RecyclerViewClickListener recyclerListener) {
+        // Constructor for Widget Configuration Activity
         mRecipes = recipes;
         mParentActivity = parent;
         mTwoPane = twoPane;
         gson = new Gson();
-
+        mWidgetItemListener = recyclerListener;
     }
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -85,7 +64,7 @@ public class RecipeAdapter
         holder.mServingCount.setText(mRecipes.get(position).getServings() + "");
         holder.mIngredientCount.setText(mRecipes.get(position).getIngredients().size() + "");
         holder.mStepsCount.setText(mRecipes.get(position).getSteps().size() + "");
-        holder.itemView.setOnClickListener(mOnClickListener);
+
     }
 
     @Override
@@ -93,7 +72,7 @@ public class RecipeAdapter
         return mRecipes.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder  {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.id_text)
         TextView mIdView;
         @BindView(R.id.serving_count)
@@ -108,9 +87,14 @@ public class RecipeAdapter
             super(view);
             ButterKnife.bind(this, view);
             mParentView = view;
-
+            if(mWidgetItemListener != null)
+                view.setOnClickListener(this);
 
         }
 
+        @Override
+        public void onClick(View v) {
+            mWidgetItemListener.recyclerViewListClicked(v,this.getLayoutPosition());
+        }
     }
 }

@@ -35,4 +35,27 @@ public final class Utils {
     public static boolean isCached(Context context) {
         return getSharedPref(context).getBoolean(IS_CACHED, false);
     }
+
+    // Write the prefix to the SharedPreferences object for this widget
+    public static void saveTitlePref(Context context, int appWidgetId, String recipeName, String jsonData) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREF_FILE, 0).edit();
+        prefs.putString(Constants.WIDGET_RECIPE_NAME + appWidgetId, recipeName)
+        .putString(Constants.WIDGET_INGREDIENT_DATA + appWidgetId,jsonData);
+        prefs.apply();
+    }
+
+    // Read the prefix from the SharedPreferences object for this widget.
+    // If there is no preference saved, get the default from a resource
+    public static String loadTitlePref(Context context, int appWidgetId, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_FILE, 0);
+         return prefs.getString(key + appWidgetId, "");
+
+    }
+
+    public static void deleteTitlePref(Context context, int appWidgetId) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREF_FILE, 0).edit();
+        prefs.remove(Constants.WIDGET_RECIPE_NAME + appWidgetId);
+        prefs.remove(Constants.WIDGET_INGREDIENT_DATA + appWidgetId);
+        prefs.apply();
+    }
 }
